@@ -2,10 +2,12 @@ package com.rage.dootleggersota;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.rage.dootleggersota.Fragments.BaseFragment;
 import com.rage.dootleggersota.Fragments.UpdateFragment;
+import com.rage.dootleggersota.Utils.ExecShell;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,5 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         UpdateFragment fragment = new UpdateFragment();
         getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+
+        ExecShell execShell = new ExecShell();
+        Log.e("HM", execShell.exec("getprop ro.bootleggers.songcodename"));
     }
 }
