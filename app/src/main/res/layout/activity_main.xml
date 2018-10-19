@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:text="Bootleggers ROM"
         android:textColor="@color/colorTextAccent"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,7 @@
         android:layout_marginTop="4dp"
         android:text="version v3.0"
         android:textColor="@color/colorTextAccent"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
