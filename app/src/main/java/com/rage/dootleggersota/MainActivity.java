@@ -30,5 +30,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("official", "hai");
         else
             Log.e("unofficial", "hai");
+        if (checkUpdate.isUpdateAvailable())
+            Log.e("update", "aayi");
+        else
+            Log.e("update", "nahi aayi");
     }
 }
