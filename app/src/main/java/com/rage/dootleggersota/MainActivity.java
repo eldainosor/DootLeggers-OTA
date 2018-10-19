@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 
 import com.rage.dootleggersota.Fragments.BaseFragment;
 import com.rage.dootleggersota.Fragments.UpdateFragment;
+import com.rage.dootleggersota.Utils.CheckUpdate;
 import com.rage.dootleggersota.Utils.ExecShell;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,5 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
         ExecShell execShell = new ExecShell();
         Log.e("HM", execShell.exec("getprop ro.bootleggers.songcodename"));
+
+        CheckUpdate checkUpdate = new CheckUpdate();
+        if (checkUpdate.isDeviceOfficial())
+            Log.e("official", "hai");
+        else
+            Log.e("unofficial", "hai");
     }
 }

@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.rage.dootleggersota.R;
 
 public class UpdateFragment extends Fragment {
@@ -18,4 +20,5 @@ public class UpdateFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_update, container, false);
         return  layout;
     }
+
 }
