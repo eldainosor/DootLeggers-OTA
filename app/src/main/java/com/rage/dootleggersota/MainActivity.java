@@ -19,20 +19,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UpdateFragment fragment = new UpdateFragment();
-        getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
-
-        ExecShell execShell = new ExecShell();
-        Log.e("HM", execShell.exec("getprop ro.bootleggers.songcodename"));
-
         CheckUpdate checkUpdate = new CheckUpdate();
-        if (checkUpdate.isDeviceOfficial())
-            Log.e("official", "hai");
-        else
-            Log.e("unofficial", "hai");
-        if (checkUpdate.isUpdateAvailable())
-            Log.e("update", "aayi");
-        else
-            Log.e("update", "nahi aayi");
+        if (checkUpdate.isDeviceOfficial()) {
+            if (checkUpdate.isUpdateAvailable()) {
+                UpdateFragment fragment = new UpdateFragment();
+                getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+            }
+        }
+        else {
+            BaseFragment fragment = new BaseFragment();
+            getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+        }
     }
 }
