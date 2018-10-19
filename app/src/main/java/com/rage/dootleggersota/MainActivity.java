@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.rage.dootleggersota.Fragments.BaseFragment;
+import com.rage.dootleggersota.Fragments.UnableFragment;
 import com.rage.dootleggersota.Fragments.UpdateFragment;
 import com.rage.dootleggersota.Utils.CheckUpdate;
 import com.rage.dootleggersota.Utils.ExecShell;
@@ -25,9 +26,13 @@ public class MainActivity extends AppCompatActivity {
                 UpdateFragment fragment = new UpdateFragment();
                 getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
             }
+            else {
+                BaseFragment fragment = new BaseFragment();
+                getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
+            }
         }
         else {
-            BaseFragment fragment = new BaseFragment();
+            UnableFragment fragment = new UnableFragment();
             getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
         }
     }
