@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.rage.dootleggersota.Adapter.ChangelogAdapter;
+import com.rage.dootleggersota.Modal.ChangelogModal;
 import com.rage.dootleggersota.R;
 
 import java.util.ArrayList;
@@ -18,6 +22,10 @@ import java.util.StringTokenizer;
 public class UpdateFragment extends Fragment {
 
     private TextView updateName, updateDate, updateCodenmae;
+    private ArrayList<ChangelogModal> changelog = new ArrayList<>();
+    private ArrayList<String> data;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
 
     @Nullable
     @Override
@@ -32,17 +40,24 @@ public class UpdateFragment extends Fragment {
         updateName = layout.findViewById(R.id.textViewUpdateName);
         updateDate = layout.findViewById(R.id.textViewUpdateDate);
         updateCodenmae = layout.findViewById(R.id.textViewUpdateCodename);
+        recyclerView = layout.findViewById(R.id.recyclerViewChangelog);
     }
 
     private void setValues () {
         if (getArguments() != null) {
-            ArrayList<String> data = getArguments().getStringArrayList("data");
+            data = getArguments().getStringArrayList("data");
             String versionnumber = "Bootleggers v" + data.get(0).substring(data.get(0).indexOf('=')+1);
             String versionDate = convertToString(data.get(1).substring(data.get(1).lastIndexOf("-")+1));
             String codeName = data.get(2).substring(data.get(2).lastIndexOf('=')+1);
             updateName.setText(versionnumber);
             updateDate.setText(versionDate);
             updateCodenmae.setText(codeName);
+            //changelog
+            makeChangelog();
+            adapter = new ChangelogAdapter(changelog, getContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -79,4 +94,13 @@ public class UpdateFragment extends Fragment {
         }
         return month + " " + day + ", " + year;
     }
+
+    private void makeChangelog () {
+        int pos = 6; // changelog starts at 6th pos
+        for (int i = pos; i < data.size(); i = i+2) {
+            ChangelogModal obj = new ChangelogModal(data.get(i), data.get(i+1));
+            changelog.add(obj);
+        }
+    }
+
 }
