@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CheckUpdate checkUpdate = new CheckUpdate();
-        if (checkUpdate.isDeviceOfficial()) {
+        if (checkUpdate.isAbleToCheckUpdate()) {
             if (checkUpdate.isUpdateAvailable()) {
                 UpdateFragment fragment = new UpdateFragment();
                 getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
             }
         }
-        else {
+        else {// also acts as a check for internet connection
             UnableFragment fragment = new UnableFragment();
             getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
         }

@@ -26,7 +26,7 @@ public class CheckUpdate {
         }
     }
 
-    public boolean isDeviceOfficial () {
+    public boolean isAbleToCheckUpdate () {
         setup();
         return data.size() > 0;
     }
