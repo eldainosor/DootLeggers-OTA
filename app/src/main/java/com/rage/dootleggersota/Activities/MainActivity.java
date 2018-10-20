@@ -1,4 +1,4 @@
-package com.rage.dootleggersota;
+package com.rage.dootleggersota.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import com.rage.dootleggersota.Fragments.BaseFragment;
 import com.rage.dootleggersota.Fragments.UnableFragment;
 import com.rage.dootleggersota.Fragments.UpdateFragment;
+import com.rage.dootleggersota.R;
 import com.rage.dootleggersota.Utils.CheckUpdate;
 import com.rage.dootleggersota.Utils.ExecShell;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkUpdate.isAbleToCheckUpdate()) {
             if (checkUpdate.isUpdateAvailable()) {
                 UpdateFragment fragment = new UpdateFragment();
+                fragment.setArguments(checkUpdate.getData());
                 getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
             }
             else {
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
             }
         }
-        else {// also acts as a check for internet connection
+        else {// check for internet connection
             UnableFragment fragment = new UnableFragment();
             getSupportFragmentManager().beginTransaction().replace(container, fragment).commit();
         }
