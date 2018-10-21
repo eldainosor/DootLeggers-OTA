@@ -67,20 +67,20 @@
                             android:text="October 19, 2018"
                             android:textColor="@color/colorTextLight"
                             android:textSize="18sp"
-                            app:layout_constraintEnd_toStartOf="@+id/textViewUpdateDownload"
+                            app:layout_constraintEnd_toStartOf="@+id/buttonDownload"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textViewUpdateName" />
 
-                        <TextView
-                            android:id="@+id/textViewUpdateDownload"
+                        <Button
+                            android:id="@+id/buttonDownload"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_marginEnd="32dp"
+                            android:layout_marginEnd="16dp"
                             android:layout_marginBottom="8dp"
-                            android:text="Pause"
+                            android:background="@color/colorPrimaryDark"
+                            android:text="Start"
                             android:textColor="@color/colorTextLight"
-                            android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -113,6 +113,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="450 of 549 MB Done (2 minutes left) • 83%"
                     android:textColor="@color/colorTextLight"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/roundCornerProgressBarDownloadProgress" />
@@ -124,12 +125,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView"
                     app:rcBackgroundColor="@color/colorPrimaryDark"
                     app:rcMax="100"
-                    app:rcProgress="83"
+                    app:rcProgress="0"
                     app:rcProgressColor="@color/colorAccent"
                     app:rcRadius="6dp">
 

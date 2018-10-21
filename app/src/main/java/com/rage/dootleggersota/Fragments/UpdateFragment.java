@@ -1,31 +1,49 @@
 package com.rage.dootleggersota.Fragments;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.downloader.Error;
+import com.downloader.OnDownloadListener;
+import com.downloader.OnProgressListener;
+import com.downloader.OnStartOrResumeListener;
+import com.downloader.PRDownloader;
+import com.downloader.Progress;
+import com.downloader.request.DownloadRequest;
 import com.rage.dootleggersota.Adapter.ChangelogAdapter;
 import com.rage.dootleggersota.Modal.ChangelogModal;
 import com.rage.dootleggersota.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class UpdateFragment extends Fragment {
 
-    private TextView updateName, updateDate, updateCodenmae;
+    private TextView updateName, updateDate, updateCodenmae, progressText;
     private ArrayList<ChangelogModal> changelog = new ArrayList<>();
+    private RoundCornerProgressBar progressBar;
     private ArrayList<String> data;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private final String DIRECTORY = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
+    private boolean downloadStarted = false;
+    private boolean isDownloading = false;
+    private Button download;
+    private int downloadId;
 
     @Nullable
     @Override
@@ -41,6 +59,32 @@ public class UpdateFragment extends Fragment {
         updateDate = layout.findViewById(R.id.textViewUpdateDate);
         updateCodenmae = layout.findViewById(R.id.textViewUpdateCodename);
         recyclerView = layout.findViewById(R.id.recyclerViewChangelog);
+        progressBar = layout.findViewById(R.id.roundCornerProgressBarDownloadProgress);
+        progressText = layout.findViewById(R.id.textViewUpdateProgressDownload);
+        //450 of 549 MB Done (2 minutes left) • 83%
+        download = layout.findViewById(R.id.buttonDownload);
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!downloadStarted) {
+                    downloadFile();
+                    download.setText("Pause");
+                    downloadStarted = true;
+                    isDownloading = true;
+                }
+                else if (isDownloading) {
+                    PRDownloader.pause(downloadId);
+                    download.setText("Resume");
+                    isDownloading = false;
+                }
+                else if (!isDownloading) {
+                    PRDownloader.resume(downloadId);
+                    download.setText("Pause");
+                    isDownloading = true;
+                }
+
+            }
+        });
     }
 
     private void setValues () {
@@ -101,6 +145,55 @@ public class UpdateFragment extends Fragment {
             ChangelogModal obj = new ChangelogModal(data.get(i), data.get(i+1));
             changelog.add(obj);
         }
+    }
+
+    private void downloadFile () {
+        File folder = new File(DIRECTORY);
+        folder.mkdirs();
+        PRDownloader.initialize(getContext());
+        String link = data.get(4).substring(data.get(4).indexOf("=")+1).trim();
+        String filename = "download.temp";
+        downloadId = PRDownloader.download(link, DIRECTORY, filename).build()
+                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
+                    @Override
+                    public void onStartOrResume() {
+                        progressBar.setVisibility(View.VISIBLE);
+                        progressText.setVisibility(View.VISIBLE);
+                    }
+                })
+                .setOnProgressListener(new OnProgressListener() {
+                    @Override
+                    public void onProgress(Progress progress) {
+                        //450 of 549 MB Done (2 minutes left) • 83%
+                        int downloadedInt = (int) ((progress.currentBytes/1000000));
+                        int totalInt = (int) ((progress.totalBytes/1000000));
+                        double downloaded = ((progress.currentBytes/1000000));
+                        double total = (int) ((progress.totalBytes/1000000));
+                        float pp = (float) (downloaded/total);
+                        int per = (int) (pp * 100);
+                        String tt = downloadedInt + " MB of " + totalInt + " MB Done • " + per + "%";
+                        progressText.setText(tt);
+                        progressBar.setProgress(per);
+                    }
+                })
+                .start(new OnDownloadListener() {
+                    @Override
+                    public void onDownloadComplete() {
+                        String finalfilename = data.get(1).substring(data.get(1).indexOf("=")+1).trim()+".zip";
+                        File downloadedFile = new File(DIRECTORY+"/download.temp");
+                        downloadedFile.renameTo(new File(DIRECTORY+finalfilename));
+                        progressText.setText("Completed.\nFile Locates in sdcard/BootleggersOTA");
+                        progressBar.setProgress(100f);
+                        download.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        progressText.setText("Error in downloading file.");
+                        Log.e("UpdateFragment", error.toString());
+                        progressBar.setActivated(false);
+                    }
+                });
     }
 
 }
