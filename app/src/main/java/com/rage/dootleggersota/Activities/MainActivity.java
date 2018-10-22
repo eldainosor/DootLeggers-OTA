@@ -99,12 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "ee", Toast.LENGTH_SHORT).show();
         showExit();
     }
 
     private void showExit () {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppTheme2);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.Dialog);
         dialog.setCancelable(false);
         if (globalUpdateFragment != null && globalUpdateFragment.downloadStarted) {
             dialog.setMessage("Download in progress.\nSure you want to exit?");
