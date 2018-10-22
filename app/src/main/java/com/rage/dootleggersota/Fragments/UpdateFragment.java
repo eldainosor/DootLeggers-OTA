@@ -151,7 +151,7 @@ public class UpdateFragment extends Fragment {
         File folder = new File(DIRECTORY);
         folder.mkdirs();
         PRDownloader.initialize(getContext());
-        String link = data.get(4).substring(data.get(4).indexOf("=")+1).trim();
+        String link = data.get(4).substring(data.get(4).indexOf("=") + 1).trim();
         String filename = "download.temp";
         downloadId = PRDownloader.download(link, DIRECTORY, filename).build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
@@ -166,11 +166,11 @@ public class UpdateFragment extends Fragment {
                     @Override
                     public void onProgress(Progress progress) {
                         //450 of 549 MB Done (2 minutes left) • 83%
-                        int downloadedInt = (int) ((progress.currentBytes/1000000));
-                        int totalInt = (int) ((progress.totalBytes/1000000));
-                        double downloaded = ((progress.currentBytes/1000000));
-                        double total = (int) ((progress.totalBytes/1000000));
-                        float pp = (float) (downloaded/total);
+                        int downloadedInt = (int) ((progress.currentBytes / 1000000));
+                        int totalInt = (int) ((progress.totalBytes / 1000000));
+                        double downloaded = ((progress.currentBytes / 1000000));
+                        double total = (int) ((progress.totalBytes / 1000000));
+                        float pp = (float) (downloaded / total);
                         int per = (int) (pp * 100);
                         String tt = downloadedInt + " MB of " + totalInt + " MB Done • " + per + "%";
                         progressText.setText(tt);
@@ -180,9 +180,9 @@ public class UpdateFragment extends Fragment {
                 .start(new OnDownloadListener() {
                     @Override
                     public void onDownloadComplete() {
-                        String finalfilename = data.get(1).substring(data.get(1).indexOf("=")+1).trim()+".zip";
-                        File downloadedFile = new File(DIRECTORY+"/download.temp");
-                        downloadedFile.renameTo(new File(DIRECTORY+finalfilename));
+                        String finalfilename = data.get(1).substring(data.get(1).indexOf("=") + 1).trim() + ".zip";
+                        File downloadedFile = new File(DIRECTORY + "/download.temp");
+                        downloadedFile.renameTo(new File(DIRECTORY + finalfilename));
                         progressText.setText("Completed.\nFile Locates in sdcard/BootleggersOTA");
                         progressBar.setProgress(100f);
                         download.setVisibility(View.GONE);
@@ -194,11 +194,12 @@ public class UpdateFragment extends Fragment {
                         progressText.setText("Error in downloading file.");
                         Log.e("UpdateFragment", error.toString());
                         progressBar.setActivated(false);
-                        File downloadedFile = new File(DIRECTORY+"/download.temp");
+                        File downloadedFile = new File(DIRECTORY + "/download.temp");
                         downloadedFile.delete();
                         isDownloading = false;
                     }
                 });
+
     }
 
 }

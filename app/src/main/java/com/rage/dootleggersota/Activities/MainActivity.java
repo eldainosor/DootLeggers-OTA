@@ -111,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String DIRECTORY = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
-                    File downloadedFile = new File(DIRECTORY+"/download.temp");
-                    downloadedFile.delete();
+                   removeTemp();
                     finish();
                 }
             });
@@ -137,4 +135,16 @@ public class MainActivity extends AppCompatActivity {
         dd.show();
     }
 
+    private void removeTemp () {
+        String DIRECTORY = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
+        File downloadedFile = new File(DIRECTORY+"/download.temp");
+        downloadedFile.delete();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (globalUpdateFragment != null && globalUpdateFragment.downloadStarted)
+            removeTemp();
+        super.onDestroy();
+    }
 }
