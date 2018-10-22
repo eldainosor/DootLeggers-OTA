@@ -40,7 +40,7 @@ public class UpdateFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private final String DIRECTORY = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
-    private boolean downloadStarted = false;
+    public boolean downloadStarted = false;
     private boolean isDownloading = false;
     private Button download;
     private int downloadId;
@@ -185,6 +185,7 @@ public class UpdateFragment extends Fragment {
                         progressText.setText("Completed.\nFile Locates in sdcard/BootleggersOTA");
                         progressBar.setProgress(100f);
                         download.setVisibility(View.GONE);
+                        isDownloading = false;
                     }
 
                     @Override
@@ -192,6 +193,9 @@ public class UpdateFragment extends Fragment {
                         progressText.setText("Error in downloading file.");
                         Log.e("UpdateFragment", error.toString());
                         progressBar.setActivated(false);
+                        File downloadedFile = new File(DIRECTORY+"/download.temp");
+                        downloadedFile.delete();
+                        isDownloading = false;
                     }
                 });
     }

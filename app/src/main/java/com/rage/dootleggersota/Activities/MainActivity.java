@@ -1,7 +1,9 @@
 package com.rage.dootleggersota.Activities;
 
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +19,8 @@ import com.rage.dootleggersota.Fragments.UpdateFragment;
 import com.rage.dootleggersota.R;
 import com.rage.dootleggersota.Utils.CheckUpdate;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     private int container = R.id.frameLayoutContainer;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private Animation fadeIn;
     private Animation fadeOut;
+    private UpdateFragment globalUpdateFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             if (checkUpdate.isAbleToCheckUpdate()) {
                 if (checkUpdate.isUpdateAvailable()) {
                     Toast.makeText(getApplicationContext(), "Update Available!", Toast.LENGTH_SHORT).show();
-                    UpdateFragment fragment = new UpdateFragment();
-                    fragment.setArguments(checkUpdate.getData());
-                    replaceFragmentWithAnimation(fragment);
+                    globalUpdateFragment = new UpdateFragment();
+                    globalUpdateFragment.setArguments(checkUpdate.getData());
+                    replaceFragmentWithAnimation(globalUpdateFragment);
                 } else {
                     Toast.makeText(getApplicationContext(), "No Update Available", Toast.LENGTH_SHORT).show();
                     BaseFragment fragment = new BaseFragment();
@@ -91,4 +96,45 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         return manager.getActiveNetworkInfo() != null && manager.getActiveNetworkInfo().isAvailable() && manager.getActiveNetworkInfo().isConnected();
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "ee", Toast.LENGTH_SHORT).show();
+        showExit();
+    }
+
+    private void showExit () {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.AppTheme2);
+        dialog.setCancelable(false);
+        if (globalUpdateFragment != null && globalUpdateFragment.downloadStarted) {
+            dialog.setMessage("Download in progress.\nSure you want to exit?");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String DIRECTORY = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
+                    File downloadedFile = new File(DIRECTORY+"/download.temp");
+                    downloadedFile.delete();
+                    finish();
+                }
+            });
+        }
+        else {
+            dialog.setMessage("Exit?");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+        }
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dd = dialog.create();
+        dd.show();
+    }
+
 }
