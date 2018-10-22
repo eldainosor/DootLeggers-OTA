@@ -1,28 +1,21 @@
 package com.rage.dootleggersota.Activities;
 
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.rage.dootleggersota.Fragments.BaseFragment;
-import com.rage.dootleggersota.Fragments.CheckingFragment;
-import com.rage.dootleggersota.Fragments.UnableFragment;
 import com.rage.dootleggersota.Fragments.UpdateFragment;
 import com.rage.dootleggersota.R;
 import com.rage.dootleggersota.Utils.CheckUpdate;
-import com.rage.dootleggersota.Utils.ExecShell;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         defineLayout();
-        CheckingFragment fragment = new CheckingFragment();
+        BaseFragment fragment = new BaseFragment();
+        Bundle data = new Bundle();
+        data.putString("middle", "Check for updates?");
+        data.putBoolean("showCard", true);
+        data.putString("bottom", "To check for updates,\nTap the refresh button.");
+        fragment.setArguments(data);
         replaceFragmentWithAnimation(fragment);
         //checkUpdate();
     }
@@ -72,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {// check for internet connection
-            UnableFragment fragment = new UnableFragment();
+            Bundle data = new Bundle();
+            data.putString("middle", "Unable to check for updates");
+            data.putBoolean("showCard", true);
+            data.putString("bottom", "Check your internet connection and,\nTap the refresh button.");
+            BaseFragment fragment = new BaseFragment();
+            fragment.setArguments(data);
             replaceFragmentWithAnimation(fragment);
         }
     }
@@ -88,5 +91,4 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         return manager.getActiveNetworkInfo() != null && manager.getActiveNetworkInfo().isAvailable() && manager.getActiveNetworkInfo().isConnected();
     }
-
 }
