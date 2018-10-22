@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         else {
-            dialog.setMessage("Exit?");
+            dialog.setMessage("\n\t\t\tAre you sure you want to Exit?\t\t\t");
             dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        dialog.setTitle("Exit?");
         dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
