@@ -68,7 +68,7 @@ public class UpdateFragment extends Fragment {
             public void onClick(View v) {
                 if (!downloadStarted) {
                     downloadFile();
-                    download.setText("Pause");
+                    download.setText("Starting...");
                     downloadStarted = true;
                     isDownloading = true;
                 }
@@ -159,6 +159,7 @@ public class UpdateFragment extends Fragment {
                     public void onStartOrResume() {
                         progressBar.setVisibility(View.VISIBLE);
                         progressText.setVisibility(View.VISIBLE);
+                        download.setText("Pause");
                     }
                 })
                 .setOnProgressListener(new OnProgressListener() {
