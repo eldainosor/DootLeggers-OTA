@@ -28,6 +28,7 @@ import com.rage.dootleggersota.Modal.ChangelogModal;
 import com.rage.dootleggersota.R;
 
 import java.io.File;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -201,5 +202,6 @@ public class UpdateFragment extends Fragment {
                 });
 
     }
+
 
 }

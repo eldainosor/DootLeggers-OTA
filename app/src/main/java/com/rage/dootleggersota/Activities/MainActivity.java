@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        defineLayout();
+        setContentView(R.layout.activity_future);
+    }
+        /*defineLayout();
         managePermission();
         BaseFragment fragment = new BaseFragment();
         Bundle data = new Bundle();
@@ -174,5 +175,5 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
-    }
+    }*/
 }
