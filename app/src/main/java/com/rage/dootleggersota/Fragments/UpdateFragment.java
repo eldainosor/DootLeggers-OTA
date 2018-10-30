@@ -183,7 +183,7 @@ public class UpdateFragment extends Fragment {
                         String finalfilename = data.get(1).substring(data.get(1).indexOf("=") + 1).trim() + ".zip";
                         File downloadedFile = new File(DIRECTORY + "/download.temp");
                         downloadedFile.renameTo(new File(DIRECTORY + finalfilename));
-                        progressText.setText("Completed.\nFile Locates in sdcard/BootleggersOTA");
+                        progressText.setText("Completed.\nFile is Located in sdcard/BootleggersOTA/");
                         progressBar.setProgress(100f);
                         download.setVisibility(View.GONE);
                         isDownloading = false;
@@ -191,7 +191,7 @@ public class UpdateFragment extends Fragment {
 
                     @Override
                     public void onError(Error error) {
-                        progressText.setText("Error in downloading file.");
+                        progressText.setText("Error in downloading file!");
                         Log.e("UpdateFragment", error.toString());
                         progressBar.setActivated(false);
                         File downloadedFile = new File(DIRECTORY + "/download.temp");
