@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".Activity.MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="6dp"
         android:fitsSystemWindows="true"
         android:theme="@style/HeaderBar"
+        android:background="?android:attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/app_name"
-                android:textColor="@color/colorAccent"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/text_size_actionbar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,14 +38,14 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar> -->
 
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardBackgroundColor="?android:attr/colorPrimary"
         app:cardCornerRadius="6dp"
         app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,8 +66,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/rom_text_logo"
-                android:textColor="#4BE20090"
+                android:textColor="?android:attr/colorAccent"
                 android:textSize="@dimen/logo_size_big"
+                android:alpha="0.23"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/rom_name_stylised"
-                android:textColor="@color/colorAccent"
+                android:textColor="?android:attr/colorAccent"
                 android:textSize="@dimen/text_size_headers"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="|"
-                android:textColor="@color/colorTextLight"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -109,7 +110,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="sometext"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/colorTextLight"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintEnd_toStartOf="@+id/textView3"
@@ -123,7 +124,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="sometext"
-                android:textColor="@color/colorTextLight"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textViewNotifUpdate"
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/notif_update_available"
-        android:textColor="@color/colorAccent"
+        android:textColor="?android:attr/colorAccent"
         android:textSize="@dimen/text_size_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

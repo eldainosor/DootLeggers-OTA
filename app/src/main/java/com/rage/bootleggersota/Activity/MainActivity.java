@@ -10,9 +10,9 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +31,7 @@ import com.rage.bootleggersota.Utils.ExecShell;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     private final int FRAGMENT_CONTAINER_ID = R.id.frameLayoutFragment;
     private FrameLayout fragmentContainer;
