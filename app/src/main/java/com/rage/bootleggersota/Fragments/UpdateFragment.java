@@ -110,7 +110,7 @@ public class UpdateFragment extends Fragment {
     }
 
     private void addUpdateToList () {
-        list.add(new BuildModal(true, getContext().getResources().getString(R.string.card_update_text_stylised), ContextCompat.getColor(getContext(), R.color.colorTextAccent)));
+        list.add(new BuildModal(true, getContext().getResources().getString(R.string.card_update_text_stylised), ContextCompat.getColor(getContext(), R.color.colorAccent)));
         list.add(buildModal);
         list.add(new BuildModal(true, getContext().getResources().getString(R.string.old_builds_negative), ContextCompat.getColor(getContext(), R.color.colorTextDark)));
     }
