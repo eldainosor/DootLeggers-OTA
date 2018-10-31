@@ -2,6 +2,7 @@ package com.rage.bootleggersota.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.downloader.PRDownloader;
+import com.downloader.request.DownloadRequest;
 import com.rage.bootleggersota.Adapter.ChangelogAdapter;
 import com.rage.bootleggersota.Modal.BuildModal;
 import com.rage.bootleggersota.R;
@@ -58,7 +61,9 @@ public class UpdateFragment extends Fragment {
             String codename = data.get(2).substring(data.get(2).indexOf('=')+1);
             date = convertToString(date);
             String downloadLink = data.get(4).substring(data.get(4).indexOf('=')+1);
-            buildModal = new BuildModal(false, ver + " (" + codename + ") " + date, makeChangelog(), "", downloadLink);
+            String totatlSize = data.get(5).substring(data.get(5).indexOf('=')+1);
+            String filename = data.get(1).substring(data.get(1).indexOf('=')+1);
+            buildModal = new BuildModal(false, ver + " (" + codename + ") - " + date, makeChangelog(),totatlSize, downloadLink, filename);
         }
     }
 
@@ -98,7 +103,7 @@ public class UpdateFragment extends Fragment {
 
     private String makeChangelog () {
         StringBuilder changelog = new StringBuilder();
-        int pos = 6; // changelog starts at 6th pos
+        int pos = 7; // changelog starts at 6th pos
         for (int i = pos; i < data.size(); i++) {
             changelog.append("- ").append(data.get(i)).append("\n");
         }

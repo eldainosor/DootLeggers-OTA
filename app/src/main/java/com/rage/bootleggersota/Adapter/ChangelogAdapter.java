@@ -1,17 +1,16 @@
 package com.rage.bootleggersota.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +20,11 @@ import com.downloader.OnProgressListener;
 import com.downloader.OnStartOrResumeListener;
 import com.downloader.PRDownloader;
 import com.downloader.Progress;
-import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.rage.bootleggersota.Modal.BuildModal;
 import com.rage.bootleggersota.R;
 
 import java.io.File;
-import java.security.ProtectionDomain;
 import java.util.ArrayList;
 
 public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.ViewHolder> {
@@ -59,10 +56,10 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, "Starting Download...", Toast.LENGTH_SHORT).show();
-                    viewHolder.downloadTouch.setVisibility(View.GONE);
-                    viewHolder.downloadLayout.setVisibility(View.GONE);
-                    viewHolder.downloadProgress.setVisibility(View.VISIBLE);
-                    downloadFile(item.getDownloadLink(), viewHolder);
+                    viewHolder.downloadTouch.setVisibility(View.GONE);// touch view
+                    viewHolder.downloadLayout.setVisibility(View.GONE);// layout
+                    viewHolder.downloadProgressBar.setVisibility(View.VISIBLE);// progress bar
+                    downloadFile(item.getDownloadLink(), viewHolder, item);
                 }
             });
         }
@@ -87,6 +84,7 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
         public View downloadTouch;
         public DonutProgress downloadProgress;
         public ConstraintLayout downloadLayout;
+        public ProgressBar downloadProgressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +97,7 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
             downloadTouch = itemView.findViewById(R.id.viewDownload);
             downloadProgress = itemView.findViewById(R.id.progressViewCircular);
             downloadLayout = itemView.findViewById(R.id.constraintLayoutDownload);
+            downloadProgressBar = itemView.findViewById(R.id.progressBarDownload);
 
         }
     }
@@ -108,12 +107,16 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
     private String directory = Environment.getExternalStorageDirectory() + "/BootleggersOTA/";
     private boolean isDownloading = false;
 
-    private void downloadFile (String link, final ViewHolder viewHolder) {
+    private void downloadFile (String link, final ViewHolder viewHolder, final BuildModal item) {
+        File downloaded = new File(Environment.getExternalStorageDirectory() + context.getResources().getString(R.string.directory) + "/download.temp");
+        downloaded.delete();
         PRDownloader.initialize(context);
-        downloadId = PRDownloader.download(link, directory, "download.temp").build()
+        downloadId = PRDownloader.download(link, directory, "download").build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                     @Override
                     public void onStartOrResume() {
+                        viewHolder.downloadProgressBar.setVisibility(View.GONE);
+                        viewHolder.downloadProgress.setVisibility(View.VISIBLE);
                         Toast.makeText(context, "Download Started", Toast.LENGTH_SHORT).show();
                         Log.e("Download", "Start");
                     }
@@ -122,13 +125,10 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
                     @Override
                     public void onProgress(Progress progress) {
                         //450 of 549 MB Done (2 minutes left) • 83%
-                        int downloadedInt = (int) ((progress.currentBytes / 1000000));
-                        int totalInt = (int) ((progress.totalBytes / 1000000));
                         double downloaded = ((progress.currentBytes / 1000000));
                         double total = (int) ((progress.totalBytes / 1000000));
                         float pp = (float) (downloaded / total);
-                        int per = (int) (pp * 100);
-                        String tt = downloadedInt + " MB of " + totalInt + " MB Done • " + per + "%";
+                        float per = (pp * 100);
                         viewHolder.downloadProgress.setProgress(per);
                     }
                 })
@@ -136,6 +136,8 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
                     @Override
                     public void onDownloadComplete() {
                         Toast.makeText(context, "Download complete", Toast.LENGTH_SHORT).show();
+                        File downloaded = new File(Environment.getExternalStorageDirectory() + context.getResources().getString(R.string.directory)+ "/download");
+                        downloaded.renameTo(new File(Environment.getExternalStorageDirectory() + context.getResources().getString(R.string.directory)  + "/" + item.getFilename()));
                     }
 
                     @Override
@@ -144,6 +146,9 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
                         viewHolder.downloadProgress.setVisibility(View.GONE);
                         viewHolder.downloadLayout.setVisibility(View.VISIBLE);
                         viewHolder.downloadTouch.setVisibility(View.VISIBLE);
+                        viewHolder.downloadProgressBar.setVisibility(View.GONE);
+                        File downloaded = new File(Environment.getExternalStorageDirectory() + context.getResources().getString(R.string.directory) + "/download.temp");
+                        downloaded.delete();
                     }
                 });
     }

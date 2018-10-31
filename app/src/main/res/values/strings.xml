@@ -3,7 +3,8 @@
     <string name="rom_name_stylised">B O O T L E G G E R S</string>
     <string name="rom_text_logo">家</string>
     <string name="notif_update_available">Update Available!</string>
-    <string name="notif_main_help">Swipe Down to check for updates</string>
+    <string name="notif_unable_check">Unable to check for Updates\nAre You Connected to the Internet?</string>
+    <string name="notif_main_help">Tap the Bootleggers Logo\nto check for updates.</string>
     <string name="notif_no_updates">Up To Date</string>
     <string name="card_update_text_stylised">U P D A T E</string>
     <string name="card_update_size_text">Update Size -</string>

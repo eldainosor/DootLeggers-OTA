@@ -130,6 +130,17 @@
                 app:layout_constraintStart_toStartOf="@+id/constraintLayoutDownload"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayoutDownload" />
 
+            <ProgressBar
+                android:id="@+id/progressBarDownload"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="24dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/progressViewCircular"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.github.lzyzsd.circleprogress.DonutProgress
                 android:id="@+id/progressViewCircular"
                 android:layout_width="64dp"

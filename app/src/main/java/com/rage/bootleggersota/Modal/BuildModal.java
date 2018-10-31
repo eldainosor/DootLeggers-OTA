@@ -2,18 +2,19 @@ package com.rage.bootleggersota.Modal;
 
 public class BuildModal {
 
-    private String title, description, size;
+    private String title, description, size, filename;
     private String breakText;
     private boolean isBreakText;
     private int colorBreakText;
     private String downloadLink;
 
-    public BuildModal(boolean isBreakText, String title, String description, String size, String downloadLink) {
+    public BuildModal(boolean isBreakText, String title, String description, String size, String downloadLink, String filename) {
         this.isBreakText = isBreakText;
         this.title = title;
         this.description = description;
         this.size = size;
         this.downloadLink = downloadLink;
+        this.filename = filename;
     }
 
     public BuildModal(boolean isBreakText, String breakText, int colorBreakText) {
@@ -48,5 +49,9 @@ public class BuildModal {
 
     public String getDownloadLink() {
         return downloadLink;
+    }
+
+    public String getFilename() {
+        return filename;
     }
 }
