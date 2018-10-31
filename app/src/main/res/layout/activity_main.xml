@@ -56,7 +56,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/rom_name_stylised"
-                android:textColor="@color/colorTextAccent"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_headers"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -33,7 +33,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Harambe"
-                android:textColor="@color/colorTextAccent"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/card_update_overview"
-                android:textColor="@color/colorTextAccent"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
