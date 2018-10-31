@@ -100,7 +100,7 @@ public class UpdateFragment extends Fragment {
         StringBuilder changelog = new StringBuilder();
         int pos = 6; // changelog starts at 6th pos
         for (int i = pos; i < data.size(); i++) {
-            changelog.append(" - ").append(data.get(i)).append("\n");
+            changelog.append("- ").append(data.get(i)).append("\n");
         }
         return changelog.toString().trim();
     }
