@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".Activity.MainActivity">
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="300"
+        android:title="Refresh"
+        android:icon="@drawable/ic_refresh"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="300"
+        android:title=""
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

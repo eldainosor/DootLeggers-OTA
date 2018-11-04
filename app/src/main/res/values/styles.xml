@@ -8,5 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/productsans_regular</item>
     </style>
-    
+
+    <style name="HeaderBar">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
